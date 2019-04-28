@@ -12,10 +12,10 @@
                 </p>
             </div>
             <div class="comments">
-                <comment-display/>
-                <comment-display/>
-                <comment-display/>
-                <comment-display/>
+                <comment-display name="a" message="abc" date="2012-12-34 00:12:34"/>
+                <comment-display name="b" message="abc" date="2012-12-34 00:12:34"/>
+                <comment-display name="c" message="abc" date="2012-12-34 00:12:34"/>
+                <comment-display name="d" message="abc" date="2012-12-34 00:12:34"/>
                 <comment-form/>
             </div>
         </div>
