@@ -1,26 +1,42 @@
 <template>
     <div>
         <div class="root">
-            <h2 class="thread-title">title</h2>
+            <h2 class="thread-title">{{ title }}</h2>
             <div class="thread">
                 <div class="properties">
-                    <span class="property">author</span>
-                    <span class="property">date</span>
+                    <span class="property">{{ name }}</span>
+                    <span class="property">{{ date }}</span>
                 </div>
                 <p class="message-body">
-                    message
+                    {{ message }}
                 </p>
             </div>
             <div class="comments">
-                <comment-display name="a" message="abc" date="2012-12-34 00:12:34"/>
-                <comment-display name="b" message="abc" date="2012-12-34 00:12:34"/>
-                <comment-display name="c" message="abc" date="2012-12-34 00:12:34"/>
-                <comment-display name="d" message="abc" date="2012-12-34 00:12:34"/>
+                <comment-display
+                    v-for="comment in comments"
+                    :key="comment.id"
+                    :name="comment.name"
+                    :date="comment.date"
+                    :message="comment.message"
+                />
                 <comment-form/>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        title: '',
+        name: '',
+        date: '',
+        message: '',
+        comments: '',
+    },
+}
+</script>
+
 
 <style scoped>
 
