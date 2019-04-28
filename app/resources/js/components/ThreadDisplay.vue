@@ -11,6 +11,13 @@
                     message
                 </p>
             </div>
+            <div class="comments">
+                <comment-display/>
+                <comment-display/>
+                <comment-display/>
+                <comment-display/>
+                <comment-form/>
+            </div>
         </div>
     </div>
 </template>
