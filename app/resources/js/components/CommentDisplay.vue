@@ -1,16 +1,21 @@
 <template>
     <div>
         <div>
-            <span>Name</span>
+            <span>{{ name }}</span>
             :
-            <span>Message</span>
+            <span>{{ message }}</span>
             --
-            <span>date</span>
+            <span>{{ date }}</span>
         </div>
     </div>
 </template>
 
-<style scoped>
-
-</style>
-
+<script>
+export default {
+    props: {
+        name: '',
+        message: '',
+        date: '',
+    }
+}
+</script>
