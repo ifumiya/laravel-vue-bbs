@@ -4,6 +4,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         count: 1,
+        threadPage: 1,
+        threadPagesCount: 10,
     },
     mutations: {
         inc(state) {
