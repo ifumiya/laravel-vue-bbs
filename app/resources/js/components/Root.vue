@@ -2,6 +2,7 @@
     <div class="root">
         <h1> L.V. BSS</h1>
         <thread-form/>
+        <thread-paginator/>
         <thread-display
             v-for="thread in threads"
             :key="thread.id"
@@ -11,6 +12,7 @@
             :message="thread.message"
             :comments="thread.comments"
         />
+        <thread-paginator/>
     </div>
 </template>
 
