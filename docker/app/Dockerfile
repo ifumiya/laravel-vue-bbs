@@ -8,9 +8,9 @@ RUN \
     docker-php-ext-install zip && \
     docker-php-ext-install pdo_mysql && \
     apt-get remove -y libzip-dev && \
-    apt-get autoremove -y
+    apt-get autoremove -y && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer 
 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 RUN composer global require hirak/prestissimo
 
 WORKDIR /var/www
