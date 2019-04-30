@@ -42,6 +42,7 @@
 {
     width: 100%;
     height: 12em;
+    box-sizing: border-box;
 }
 
 
