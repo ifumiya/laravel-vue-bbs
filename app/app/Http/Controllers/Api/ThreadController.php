@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Model\Thread;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ThreadController extends Controller
+class ThreadController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -31,12 +31,12 @@ class ThreadController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Model\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Thread $thread)
     {
-        return 'banana' . $id;
+        dd($thread);
         //
     }
 
@@ -44,10 +44,10 @@ class ThreadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Model\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Thread $thread)
     {
         //
     }
@@ -55,10 +55,10 @@ class ThreadController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Model\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Thread $thread)
     {
         //
     }
