@@ -21,11 +21,17 @@
                 />
                 <comment-form/>
             </div>
+            <div>
+                <input type="button" value="+" @click="inc">
+                ={{ count }}=
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
     props: {
         title: '',
@@ -34,6 +40,16 @@ export default {
         message: '',
         comments: '',
     },
+    computed: {
+        ...mapState([
+            'count',
+        ])
+    },
+    methods: {
+        inc() {
+            this.$store.commit('inc');
+        }
+    }
 }
 </script>
 
