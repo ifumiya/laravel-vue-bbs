@@ -1,14 +1,23 @@
-version: '3'
+version: "3"
 
 services:
   app:
     build: ./docker/app
     volumes:
-    - ./app:/var/www/
-    ports: 
-    - 8015:8000
-    command:  >
+      - ./app:/var/www/
+    ports:
+      - "2000:8000"
+    command: >
       php
       artisan serv
       --port 8000
       --host 0.0.0.0
+  mysql:
+    image: mysql
+    ports:
+      - "2010:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: jfiasdfe
+      MYSQL_DATABASE: lvbbs
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: lvlaravel
