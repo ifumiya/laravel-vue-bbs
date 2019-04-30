@@ -36,8 +36,7 @@ class ThreadController extends ApiController
      */
     public function show(Thread $thread)
     {
-        dd($thread);
-        //
+        return $thread;
     }
 
     /**
