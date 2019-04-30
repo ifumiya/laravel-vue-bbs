@@ -14,7 +14,7 @@ class ThreadController extends ApiController
      */
     public function index()
     {
-        //
+        return Thread::all();
     }
 
     /**
