@@ -11,6 +11,4 @@
 |
 */
 
-Route::get('/', function () {
-    return view('web-root');
-});
+Route::view('/', 'web-root');
