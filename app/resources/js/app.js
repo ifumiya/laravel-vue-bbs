@@ -6,6 +6,7 @@
  */
 
  import Vue from 'vue';
+ import store from './store';
 
 window.Vue = Vue;
 
@@ -29,4 +30,5 @@ files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(
 const app = new Vue({
     el: '#app',
     template: '<root/>',
+    store,
 });
