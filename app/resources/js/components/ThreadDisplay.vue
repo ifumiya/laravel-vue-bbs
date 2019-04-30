@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 
 export default {
     props: {
@@ -46,8 +46,12 @@ export default {
         ])
     },
     methods: {
+        ...mapActions([
+            'incAsync',
+        ]),
         inc() {
-            this.$store.commit('inc');
+            console.log('method inc');
+            this.incAsync({amount: 10});
         }
     }
 }
