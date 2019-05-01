@@ -103,16 +103,16 @@ const sampleMessages = [
 ]
 
 
-import vuex from 'vuex';
+import {mapActions, mapState} from 'vuex';
 
 export default {
-    data() {
-        return {
-            threads: sampleMessages,
-        }
+    computed: {
+        ...mapState([
+            'threads',
+        ]),
     },
     methods: {
-        ...vuex.mapActions([
+        ...mapActions([
             'selectThreadPage',
         ]),
     },
