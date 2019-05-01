@@ -5,7 +5,7 @@
             :
             <span>{{ message }}</span>
             --
-            <span>{{ date }}</span>
+            <span>{{ updated_at }}</span>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
     props: {
         name: '',
         message: '',
-        date: '',
+        updated_at: '',
     }
 }
 </script>

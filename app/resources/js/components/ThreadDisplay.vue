@@ -5,7 +5,7 @@
             <div class="thread">
                 <div class="properties">
                     <span class="property">{{ name }}</span>
-                    <span class="property">{{ date }}</span>
+                    <span class="property">{{ updated_at }}</span>
                 </div>
                 <p class="message-body">
                     {{ message }}
@@ -16,7 +16,7 @@
                     v-for="comment in comments"
                     :key="comment.id"
                     :name="comment.name"
-                    :date="comment.date"
+                    :updated_at="comment.updated_at"
                     :message="comment.message"
                 />
             </div>
@@ -32,7 +32,7 @@ export default {
     props: {
         title: '',
         name: '',
-        date: '',
+        updated_at: '',
         message: '',
         comments: '',
     },

@@ -7,7 +7,7 @@
             v-for="thread in threads"
             :key="thread.id"
             :title="thread.title"
-            :date="thread.date"
+            :updated_at="thread.updated_at"
             :name="thread.name"
             :message="thread.message"
             :comments="thread.comments"
