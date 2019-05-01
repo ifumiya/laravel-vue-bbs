@@ -21,8 +21,7 @@ export default {
     computed: {
         ...mapState(['threadPage', 'threadPagesCount']),
         pages() {
-            return Array(this.threadPagesCount)
-                .keys();
+            return Array.from({length: this.threadPagesCount}, (v,k) => k);
         },
     },
     methods: {
