@@ -39,7 +39,7 @@ export default new Vuex.Store({
                 params: { page }
             })
             .then(response => {
-                const pageCount = response.data.total;
+                const pageCount = response.data.last_page;
                 const currentPage = response.data.current_page;
                 const threads = response.data.data;
                 commit('setThreads', threads);
