@@ -11,6 +11,7 @@ class FakerSeeder extends Seeder
      */
     public $blueprint = [
         App\Model\Thread::class => 20,
+        App\Model\Comment::class => 100,
     ];
 
     public function run()
