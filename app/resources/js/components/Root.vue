@@ -100,15 +100,24 @@ const sampleMessages = [
             },
         ]
     },
-
 ]
 
+
+import vuex from 'vuex';
 
 export default {
     data() {
         return {
             threads: sampleMessages,
         }
+    },
+    methods: {
+        ...vuex.mapActions([
+            'selectThreadPage',
+        ]),
+    },
+    created() {
+        this.selectThreadPage(1);
     }
 }
 </script>
