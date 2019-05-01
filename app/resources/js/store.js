@@ -22,22 +22,20 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        selectThreadPage({commit, state}, page) {
-            return Axios.get('/api/threads/', {
+        async selectThreadPage({commit, state}, page) {
+            const response = await Axios.get('/api/threads/', {
                 params: { page }
-            })
-            .then(response => {
-                const pageCount = response.data.last_page;
-                const currentPage = response.data.current_page;
-                const threads = response.data.data;
-                commit('setThreads', threads);
-                if (state.threadPage !== currentPage) {
-                    commit('setThreadPage', currentPage);
-                }
-                if (state.threadPagesCount !== pageCount) {
-                    commit('setThreadPagesCount', pageCount);
-                }
             });
+            const pageCount = response.data.last_page;
+            const currentPage = response.data.current_page;
+            const threads = response.data.data;
+            commit('setThreads', threads);
+            if (state.threadPage !== currentPage) {
+                commit('setThreadPage', currentPage);
+            }
+            if (state.threadPagesCount !== pageCount) {
+                commit('setThreadPagesCount', pageCount);
+            }
         }
     },
 });
