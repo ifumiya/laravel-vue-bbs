@@ -14,7 +14,7 @@ class ThreadController extends ApiController
      */
     public function index()
     {
-        return Thread::paginate(10);
+        return Thread::paginate(5);
     }
 
     /**
