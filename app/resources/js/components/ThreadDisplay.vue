@@ -19,8 +19,8 @@
                     :date="comment.date"
                     :message="comment.message"
                 />
-                <comment-form/>
             </div>
+            <comment-form/>
             <div>
                 <input type="button" value="+" @click="inc">
                 ={{ count }}=
@@ -97,6 +97,13 @@ export default {
 .message-body
 {
     margin: 0;
+}
+
+.comments
+{
+    margin-left: 10px;
+    border-left: 5px solid gray;
+    padding-left: 10px;
 }
 
 
