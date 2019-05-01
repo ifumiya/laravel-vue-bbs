@@ -21,10 +21,6 @@
                 />
             </div>
             <comment-form/>
-            <div>
-                <input type="button" value="+" @click="inc">
-                ={{ count }}=
-            </div>
         </div>
     </div>
 </template>
@@ -40,20 +36,6 @@ export default {
         message: '',
         comments: '',
     },
-    computed: {
-        ...mapState([
-            'count',
-        ])
-    },
-    methods: {
-        ...mapActions([
-            'incAsync',
-        ]),
-        inc() {
-            console.log('method inc');
-            this.incAsync({amount: 10});
-        }
-    }
 }
 </script>
 

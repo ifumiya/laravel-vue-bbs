@@ -6,16 +6,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     strict: true,
     state: {
-        count: 1,
         threadPage: 1,
         threadPagesCount: 10,
         threads: {},
     },
     mutations: {
-        inc(state) {
-            state.count += 1;
-            console.log('inc');
-        },
         setThreads(state, threads) {
             state.threads = threads;
         },
@@ -27,13 +22,6 @@ export default new Vuex.Store({
         },
     },
     actions: {
-        incAsync({commit}, {amount}) {
-            console.log('action');
-            console.log(amount);
-            for(let i = 0 ; i < amount ; i++) {
-                setTimeout(() => commit('inc'), 100 * i);
-            }
-        },
         selectThreadPage({commit, state}, page) {
             return Axios.get('/api/threads/', {
                 params: { page }
