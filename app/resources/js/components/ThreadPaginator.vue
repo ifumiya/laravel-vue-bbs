@@ -5,6 +5,7 @@
             <div
                 class="btn btn-abs"
                 :class="{current: page + 1 === threadPage}"
+                @click="selectThreadPage(page + 1)"
                 v-for="page in pages" :key="page"
             >
                 {{ page + 1 }}
@@ -23,7 +24,10 @@ export default {
             return Array(this.threadPagesCount)
                 .keys();
         },
-    }
+    },
+    methods: {
+        ...mapActions(['selectThreadPage']),
+    },
 }
 </script>
 
