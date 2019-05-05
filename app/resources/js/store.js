@@ -39,7 +39,6 @@ export default new Vuex.Store({
         },
         async postThread({commit, state}, thread)
         {
-            console.log('vuex postThread', thread);
             const response = await Axios.post('/api/threads/', thread);
         }
     },
