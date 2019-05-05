@@ -31,4 +31,19 @@ class ThreadTest extends TestCase
                 ],
             ]);
     }
+
+    public function  testStore()
+    {
+        $thread = factory(Thread::class)->make();
+        $contents = collect($thread->toArray())
+            ->only(['name' , 'message', 'title'])
+            ->toArray();
+        $response = $this->json('POST', self::endpoint, $contents);
+        $response
+            ->assertOk();
+        $this->assertDatabaseHas(
+            'threads',
+            $contents
+        );
+    }
 }
