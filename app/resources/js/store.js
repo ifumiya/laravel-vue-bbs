@@ -14,7 +14,7 @@ export default new Vuex.Store({
         setThreads(state, threads) {
             state.threads = threads;
         },
-        insertThread(state, threads) {
+        insertThreads(state, threads) {
             state.threads = [...threads, ...state.threads];
         },
         setThreadPage(state, threadPage) {
