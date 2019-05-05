@@ -34,15 +34,18 @@ export default {
                 message: this.message,
             };
         }
-
     },
     methods: {
         ...mapActions(['postThread']),
-        preparePost() {
-            this.postThread(this.thread);
-        }
-    }
-
+        async preparePost() {
+            await this.postThread(this.thread);
+            this.clearForm();
+        },
+        clearForm() {
+            this.title = '';
+            this.message = '';
+        },
+    },
 }
 </script>
 
