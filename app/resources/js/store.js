@@ -14,6 +14,9 @@ export default new Vuex.Store({
         setThreads(state, threads) {
             state.threads = threads;
         },
+        insertThread(state, threads) {
+            state.threads = [...threads, ...state.threads];
+        },
         setThreadPage(state, threadPage) {
             state.threadPage = threadPage;
         },
@@ -40,6 +43,7 @@ export default new Vuex.Store({
         async postThread({commit, state}, thread)
         {
             const response = await Axios.post('/api/threads/', thread);
+            commit('insertThreads', [response.data]);
         }
     },
 });
