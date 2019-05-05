@@ -25,12 +25,7 @@ class ThreadController extends ApiController
      */
     public function store(Request $request)
     {
-        $attributes = collect($request->json())
-            ->only(['message', 'title', 'name'])
-            ->toArray();
-        resolve(Thread::class)
-            ->fill($request->toArray())
-            ->save();
+        return Thread::create($request->toArray());
     }
 
     /**
