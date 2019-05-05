@@ -18,6 +18,7 @@ if (Mix.isUsing('hmr')) {
             path: '/',
         },
         devServer: {
+            overlay: true,
             proxy: {
                     '/':'http://localhost:2000/'
             },
