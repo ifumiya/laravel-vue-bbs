@@ -10,16 +10,12 @@ use App\Model\Thread;
 class ThreadTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+    const endpoint = '/api/threads/';
 
     public function testIndex()
     {
         $thread = factory(Thread::class)->create();
-        $response = $this->get('/api/threads/');
+        $response = $this->get(self::endpoint);
         $response
             ->assertOk()
             ->assertJson([
@@ -34,11 +30,5 @@ class ThreadTest extends TestCase
                     ],
                 ],
             ]);
-    }
-
-    public function testExample()
-    {
-        $response = $this->get('/');
-        $response->assertStatus(200);
     }
 }
