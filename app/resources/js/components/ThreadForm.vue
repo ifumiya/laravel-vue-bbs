@@ -3,17 +3,49 @@
         <div class="root">
             <div class="name-row labeled-input">
                 <label>Name:</label>
-                <input type="text" class="name-input">
+                <input type="text" class="name-input" v-model="name">
             </div>
             <div class="title-row labeled-input">
                 <label>Title:</label>
-                <input type="text" class="title-input">
+                <input type="text" class="title-input" v-model="title">
             </div>
-            <textarea class="message-input"></textarea>
-            <input type="submit" class="submit-button">
+            <textarea class="message-input" v-model="message"></textarea>
+            <input type="submit" class="submit-button" @click="preparePost">
         </div>
     </div>
 </template>
+
+<script>
+import {mapActions} from 'vuex';
+
+export default {
+    data() {
+        return {
+            name: '',
+            title: '',
+            message: '',
+        };
+    },
+    computed: {
+        thread() {
+            return {
+                name: this.name,
+                title: this.title,
+                message: this.message,
+            };
+        }
+
+    },
+    methods: {
+        ...mapActions(['postThread']),
+        preparePost() {
+            this.postThread(this.thread);
+        }
+    }
+
+}
+</script>
+
 
 <style scoped>
 
