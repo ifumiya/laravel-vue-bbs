@@ -8,7 +8,9 @@ jobs:
     steps:
       - checkout
       - run: echo 'banana'
-      - run: composer install
+      - run: 
+          command: composer install
+          working_directory: app/
       - run: php artisan key:generate
   test:
     docker:
