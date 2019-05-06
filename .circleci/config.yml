@@ -30,7 +30,7 @@ jobs:
             apt-get install -y --no-install-recommends libzip-dev unzip libzip4 &&
             docker-php-ext-configure zip --with-libzip &&
             docker-php-ext-install zip &&
-            docker-php-ext-install pdo_mysql &&
+            docker-php-ext-install pdo_mysql
 
       # install dependency
 
