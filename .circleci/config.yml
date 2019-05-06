@@ -7,10 +7,22 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-      - run: echo 'banana'
+      # build environments
+      - run: sudo apt update && sudo apt install zlib1g-dev libsqlite3-dev
+      - run: sudo docker-php-ext-install zip
+
+      # install dependency
+      
+      - restore_cache:
+        keys: v1-composer-{{ checksum "app/composer.json" }}
+      
       - run: 
-          command: composer install
+          command: composer install -n --prefer-dist
           working_directory: app/
+      - save_cache:
+          key: composer-v1-{{ checksum "app/composer.lock" }}
+          paths:
+            - app/vendor
       - run: php artisan key:generate
   test:
     docker:
