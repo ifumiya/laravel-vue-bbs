@@ -36,12 +36,12 @@ jobs:
       # build environments
       - run:
           name: install middleware
-          command: >
-            sudo apt-get update &&
-            sudo apt-get upgrade -y &&
-            sudo apt-get install -y --no-install-recommends libzip-dev unzip libzip4 &&
-            sudo docker-php-ext-configure zip --with-libzip &&
-            sudo docker-php-ext-install zip &&
+          command: |
+            sudo apt-get update
+            sudo apt-get upgrade -y
+            sudo apt-get install -y --no-install-recommends libzip-dev unzip libzip4
+            sudo docker-php-ext-configure zip --with-libzip
+            sudo docker-php-ext-install zip
             sudo docker-php-ext-install pdo_mysql
       # install dependency
       - restore_cache:
@@ -67,9 +67,10 @@ jobs:
           working_directory: app/
           command: php artisan migrate --seed
       - persist_to_workspace:
-          root: *workspace_root
+          root: /
           paths:
-            - ./
+            - *workspace_root
+            - /bin/
 
   test:
     <<: *container_config
