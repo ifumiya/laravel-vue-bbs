@@ -18,13 +18,6 @@ references:
           MYSQL_DATABASE: lvbbs
           MYSQL_USER: laravel
           MYSQL_PASSWORD: lvlaravel
-  
-  workspace_root: &workspace_root
-    ~/workspace
-
-  attach_workspace: &attach_workspace
-    attach_workspace:
-      at: *workspace_root
 
 commands:
   composer_install: 
@@ -69,17 +62,6 @@ jobs:
       - run: 
           working_directory: app/
           command: php artisan migrate --seed
-      - persist_to_workspace:
-          root: /
-          paths:
-            - *workspace_root
-            - /bin/
-
-  test:
-    <<: *container_config
-    working_directory: ~/workspace/app
-    steps:
-      - *attach_workspace
       - run: 
           name: phpunit
           working_directory: app/
@@ -90,6 +72,3 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
