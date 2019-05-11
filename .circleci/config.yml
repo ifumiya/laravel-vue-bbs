@@ -1,7 +1,7 @@
 version: 2.1
 
-jobs:
-  build:
+references:
+  container_config: &container_config
     docker:
       - image: circleci/php:7.3
         environment: 
@@ -18,7 +18,19 @@ jobs:
           MYSQL_DATABASE: lvbbs
           MYSQL_USER: laravel
           MYSQL_PASSWORD: lvlaravel
-    working_directory: ~/project
+    working_directory: ~/workspace
+  
+  workspace_root: &workspace_root
+    ~/workspace
+
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace_root
+
+
+jobs:
+  build:
+    <<: *container_config
     steps:
       - checkout
       # build environments
@@ -31,9 +43,7 @@ jobs:
             sudo docker-php-ext-configure zip --with-libzip &&
             sudo docker-php-ext-install zip &&
             sudo docker-php-ext-install pdo_mysql
-
       # install dependency
-
       - restore_cache:
           keys: v1-composer-{{ checksum "app/composer.json" }}
       - run:
@@ -53,6 +63,10 @@ jobs:
       - run: 
           command: php artisan migrate --seed
           working_directory: app/
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - ./
 
         
   test:
