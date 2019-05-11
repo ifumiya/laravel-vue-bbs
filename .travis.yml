@@ -3,3 +3,6 @@ php:
   - '7.3'
 before_install:
   - cd app
+install:
+  - composer global require hirak/prestissimo 
+  - composer install -n --prefer-dist 
