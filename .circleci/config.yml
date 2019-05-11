@@ -18,7 +18,6 @@ references:
           MYSQL_DATABASE: lvbbs
           MYSQL_USER: laravel
           MYSQL_PASSWORD: lvlaravel
-    working_directory: ~/workspace
   
   workspace_root: &workspace_root
     ~/workspace
@@ -31,6 +30,7 @@ references:
 jobs:
   build:
     <<: *container_config
+    working_directory: ~/workspace
     steps:
       - checkout
       # build environments
@@ -56,25 +56,30 @@ jobs:
           key: composer-v1-{{ checksum "app/composer.lock" }}
           paths:
             - app/vendor
+      - run: 
+          working_directory: app/
+          command: composer dump-autoload
       - run: cp app/.env.example app/.env
       - run: 
+          working_directory: app/
           command: php artisan key:generate
-          working_directory: app/
       - run: 
-          command: php artisan migrate --seed
           working_directory: app/
+          command: php artisan migrate --seed
       - persist_to_workspace:
           root: *workspace_root
           paths:
             - ./
 
-        
   test:
-    docker:
-      - image: php/7.3
-    working_directory: ~/project
+    <<: *container_config
+    working_directory: ~/workspace/app
     steps:
-      - checkout
+      - *attach_workspace
+      - run: 
+          name: phpunit
+          working_directory: app/
+          command: ./vendor/phpunit
 
 workflows:
   version: 2
