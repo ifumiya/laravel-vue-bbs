@@ -10,12 +10,12 @@ use App\Model\Thread;
 class ThreadTest extends TestCase
 {
     use RefreshDatabase;
-    const endpoint = '/api/threads/';
+    const ENDPOINT = '/api/threads/';
 
     public function testIndex()
     {
         $thread = factory(Thread::class)->create();
-        $response = $this->get(self::endpoint);
+        $response = $this->get(self::ENDPOINT);
         $response
             ->assertOk()
             ->assertJson([
