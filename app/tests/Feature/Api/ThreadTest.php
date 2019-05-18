@@ -32,7 +32,7 @@ class ThreadTest extends TestCase
             ]);
     }
 
-    public function  testStore()
+    public function testStore()
     {
         $thread = factory(Thread::class)->make();
         $contents = collect($thread->toArray())
