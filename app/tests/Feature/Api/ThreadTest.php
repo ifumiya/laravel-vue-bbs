@@ -38,7 +38,7 @@ class ThreadTest extends TestCase
         $contents = collect($thread->toArray())
             ->only(['name' , 'message', 'title'])
             ->toArray();
-        $response = $this->json('POST', self::endpoint, $contents);
+        $response = $this->json('POST', self::ENDPOINT, $contents);
         $response
             ->assertStatus(201);
         $this->assertDatabaseHas(
