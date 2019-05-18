@@ -57,6 +57,7 @@
     -->
     <arg name="colors"/>
     <arg value="p"/>
+    <arg value="s"/>
 
     <!--
        You can hard-code custom php.ini settings into your custom standard.
