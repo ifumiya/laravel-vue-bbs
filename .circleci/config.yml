@@ -63,6 +63,10 @@ jobs:
           working_directory: app/
           command: php artisan migrate --seed
       - run: 
+          name: phpcs
+          working_directory: app/
+          command: ./vendor/bin/phpcs
+      - run: 
           name: phpunit
           working_directory: app/
           command: ./vendor/bin/phpunit
