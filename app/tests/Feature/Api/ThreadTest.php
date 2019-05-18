@@ -40,7 +40,7 @@ class ThreadTest extends TestCase
             ->toArray();
         $response = $this->json('POST', self::endpoint, $contents);
         $response
-            ->assertOk();
+            ->assertStatus(201);
         $this->assertDatabaseHas(
             'threads',
             $contents

@@ -1,7 +1,7 @@
 version: 2.1
 
-jobs:
-  build:
+references:
+  container_config: &container_config
     docker:
       - image: circleci/php:7.3
         environment: 
@@ -18,49 +18,54 @@ jobs:
           MYSQL_DATABASE: lvbbs
           MYSQL_USER: laravel
           MYSQL_PASSWORD: lvlaravel
-    working_directory: ~/project
+
+commands:
+  composer_install: 
     steps:
-      - checkout
-      # build environments
-      - run:
-          name: install middleware
-          command: >
-            sudo apt-get update &&
-            sudo apt-get upgrade -y &&
-            sudo apt-get install -y --no-install-recommends libzip-dev unzip libzip4 &&
-            sudo docker-php-ext-configure zip --with-libzip &&
-            sudo docker-php-ext-install zip &&
-            sudo docker-php-ext-install pdo_mysql
-
-      # install dependency
-
       - restore_cache:
           keys: v1-composer-{{ checksum "app/composer.json" }}
       - run:
           name: composer install
-          command:
-            composer global require hirak/prestissimo &&
+          command: |
+            composer global require hirak/prestissimo
             composer install -n --prefer-dist 
           working_directory: app/
       - save_cache:
           key: composer-v1-{{ checksum "app/composer.lock" }}
           paths:
             - app/vendor
-      - run: cp app/.env.example app/.env
-      - run: 
-          command: php artisan key:generate
-          working_directory: app/
-      - run: 
-          command: php artisan migrate --seed
-          working_directory: app/
 
-        
-  test:
-    docker:
-      - image: php/7.3
-    working_directory: ~/project
+jobs:
+  build:
+    <<: *container_config
+    working_directory: ~/workspace
     steps:
       - checkout
+      # build environments
+      - run:
+          name: install middleware
+          command: |
+            sudo apt-get update
+            sudo apt-get upgrade -y
+            sudo apt-get install -y --no-install-recommends libzip-dev unzip libzip4
+            sudo docker-php-ext-configure zip --with-libzip
+            sudo docker-php-ext-install zip
+            sudo docker-php-ext-install pdo_mysql
+      - composer_install
+      - run: 
+          working_directory: app/
+          command: composer dump-autoload
+      - run: cp app/.env.example app/.env
+      - run: 
+          working_directory: app/
+          command: php artisan key:generate
+      - run: 
+          working_directory: app/
+          command: php artisan migrate --seed
+      - run: 
+          name: phpunit
+          working_directory: app/
+          command: ./vendor/bin/phpunit
 
 workflows:
   version: 2
