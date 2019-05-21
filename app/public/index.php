@@ -7,6 +7,8 @@
  * @author   Taylor Otwell <taylor@laravel.com>
  */
 
+// phpcs:disable PSR1.Files.SideEffects
+
 define('LARAVEL_START', microtime(true));
 
 /*
