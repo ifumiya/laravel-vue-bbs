@@ -76,11 +76,12 @@ jobs:
           working_directory: app/
           command: > 
             ./vendor/bin/phpcs 
-            --report-junit=~/test_result/phpc/
-            --report-checkstyle=~/test_result/phpcs/
+            --report-junit=$HOME/test_result/phpcs/junit.xml
+            --report-checkstyle=$HOME/test_result/phpcs/checkstyle.xml
+            --report-full
       - run: 
           name: phpcs - reviewdog
-          command: cat ~/test_result/phpcs/checkstyle.xml | ./bin/reviewdog -f=checkstyle -name="phpcs" -reporter=github-pr-check
+          command: cat ~/test_result/phpcs/checkstyle.xml | ./bin/reviewdog -f=checkstyle -name="phpcs" -diff="git diff origin/master" -reporter=github-pr-check
       - run: 
           name: phpunit
           working_directory: app/
