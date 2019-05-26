@@ -44,6 +44,12 @@ jobs:
       - run:
           name: install review dog
           command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s 
+      - run:
+          name: Make directories
+          command: >
+            mkdir -p
+            ~/test_result/phpunit
+            ~/test_result/phpcs
       # build environments
       - run:
           name: install middleware
@@ -68,13 +74,17 @@ jobs:
       - run: 
           name: phpcs
           working_directory: app/
-          command: ./vendor/bin/phpcs
+          command: > 
+            ./vendor/bin/phpcs 
+            --report-junit=~/test_result/phpcs/junit.xml
+            --report-checkstyle=~/test_result/phpcs/checkstyle.xml
+      - run: 
+          name: phpcs - reviewdog
+          command: cat ~/test_result/phpcs/checkstyle.xml | ./bin/reviewdog -f=checkstyle -name="phpcs" -reporter=github-pr-check
       - run: 
           name: phpunit
           working_directory: app/
-          command:  |
-              mkdir -p ~/test_result/phpunit
-              ./vendor/bin/phpunit --log-junit ~/test_result/phpunit/junit.xml
+          command: ./vendor/bin/phpunit --log-junit ~/test_result/phpunit/junit.xml
       - store_test_results:
           path: ~/test_result/
       - store_artifacts:
