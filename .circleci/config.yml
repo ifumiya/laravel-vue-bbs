@@ -76,8 +76,8 @@ jobs:
           working_directory: app/
           command: > 
             ./vendor/bin/phpcs 
-            --report-junit=~/test_result/phpcs/junit.xml
-            --report-checkstyle=~/test_result/phpcs/checkstyle.xml
+            --report-junit=~/test_result/phpc/
+            --report-checkstyle=~/test_result/phpcs/
       - run: 
           name: phpcs - reviewdog
           command: cat ~/test_result/phpcs/checkstyle.xml | ./bin/reviewdog -f=checkstyle -name="phpcs" -reporter=github-pr-check
