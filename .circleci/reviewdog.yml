@@ -1,4 +1,4 @@
 runner:
   phpcs:
-    cmd: cat ~/test_result/checkstyle.xml
+    cmd: cat ~/test_result/phpcs/checkstyle.xml
     format: checkstyle
