@@ -73,10 +73,10 @@ jobs:
           name: phpunit
           working_directory: app/
           command:  |
-              mkdir -p ~/phpunit
-              ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
+              mkdir -p ~/test_result/phpunit
+              ./vendor/bin/phpunit --log-junit ~/test_result/phpunit/junit.xml
       - store_test_results:
-          path: ~/phpunit
+          path: ~/test_result/
       - store_artifacts:
           path: ~/phpunit 
 
