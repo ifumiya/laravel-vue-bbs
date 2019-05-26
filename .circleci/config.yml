@@ -80,12 +80,13 @@ jobs:
             --report-checkstyle=$HOME/test_result/phpcs/checkstyle.xml
             --report-full
       - run: 
-          name: phpcs - reviewdog
-          command: cat ~/test_result/phpcs/checkstyle.xml | ./bin/reviewdog -f=checkstyle -name="phpcs" -diff="git diff origin/master" -reporter=github-pr-check
-      - run: 
           name: phpunit
           working_directory: app/
           command: ./vendor/bin/phpunit --log-junit ~/test_result/phpunit/junit.xml
+      - run: 
+          name: reviewdog
+          command: ./bin/reviewdog -conf=.circleci/reviewdog.yml -diff="git diff origin/master" -reporter=github-pr-check
+          when: always
       - store_test_results:
           path: ~/test_result/
       - store_artifacts:
