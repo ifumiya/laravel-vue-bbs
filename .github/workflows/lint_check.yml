@@ -4,15 +4,15 @@ on: [pull_request]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v1
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    - run: cd app
-    - run: npm install
-    - run: npm test
+    - name: js-lint
+      working-directory: ./app
+      run: |
+        npm ci
+        npm run lint
     
