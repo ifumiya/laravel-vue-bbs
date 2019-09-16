@@ -23,7 +23,7 @@ commands:
   composer_install: 
     steps:
       - restore_cache:
-          keys: v1-composer-{{ checksum "app/composer.json" }}
+          keys: composer-v1-{{ checksum "app/composer.json" }}-{{ checksum "app/composer.lock" }}
       - run:
           name: composer install
           command: |
@@ -31,7 +31,7 @@ commands:
             composer install -n --prefer-dist 
           working_directory: app/
       - save_cache:
-          key: composer-v1-{{ checksum "app/composer.lock" }}
+          key: composer-v1-{{ checksum "app/composer.json" }}-{{ checksum "app/composer.lock" }}
           paths:
             - app/vendor
 
@@ -41,6 +41,15 @@ jobs:
     working_directory: ~/workspace
     steps:
       - checkout
+      - run:
+          name: install review dog
+          command: curl -sfL https://raw.githubusercontent.com/reviewdog/reviewdog/master/install.sh| sh -s 
+      - run:
+          name: Make directories
+          command: >
+            mkdir -p
+            ~/test_result/phpunit
+            ~/test_result/phpcs
       # build environments
       - run:
           name: install middleware
@@ -65,15 +74,21 @@ jobs:
       - run: 
           name: phpcs
           working_directory: app/
-          command: ./vendor/bin/phpcs
+          command: > 
+            ./vendor/bin/phpcs 
+            --report-junit=$HOME/test_result/phpcs/junit.xml
+            --report-checkstyle=$HOME/test_result/phpcs/checkstyle.xml
+            --report-full
       - run: 
           name: phpunit
           working_directory: app/
-          command:  |
-              mkdir -p ~/phpunit
-              ./vendor/bin/phpunit --log-junit ~/phpunit/junit.xml
+          command: ./vendor/bin/phpunit --log-junit ~/test_result/phpunit/junit.xml
+      - run: 
+          name: reviewdog
+          command: ./bin/reviewdog -conf=.circleci/reviewdog.yml -diff="git diff origin/master" -reporter=github-pr-check
+          when: always
       - store_test_results:
-          path: ~/phpunit
+          path: ~/test_result/
       - store_artifacts:
           path: ~/phpunit 
 
